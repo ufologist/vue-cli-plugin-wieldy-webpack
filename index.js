@@ -85,6 +85,8 @@ function addBanner(webpackConfig) {
 /**
  * 调整 url-loader 的 limit 配置
  * 
+ * XXX 暂未使用, 因为没有理论依据为什么要调整到 8KB
+ * 
  * @param {ChainedMap} webpackConfig 
  * @see vue-cli/packages/@vue/cli-service/lib/config/base.js
  */
@@ -165,11 +167,12 @@ function modifyMinimizerOption(webpackConfig) {
 /**
  * 调整生成文件名的命名规则
  * 
+ * XXX 暂未使用, 因为 cli-service 和 wieldy-webpack 定义的规则有很多地方不一样
+ * 
  * @param {ChainedMap} webpackConfig
  * @see vue-cli/packages/@vue/cli-service/lib/config/base.js
  */
 function modifyOutputFilenameRule(webpackConfig) {
-    // 暂时不考虑修改生成文件的规则, 因为和默认的规则有很多地方不一样
     var chunkFilename = webpackConfig.output.get('chunkFilename');
     var filename = webpackConfig.output.get('filename');
     if (chunkFilename) {
@@ -193,8 +196,6 @@ module.exports = function(api, projectOptions) {
     api.chainWebpack(function(webpackConfig) {
         const isDev = process.env.NODE_ENV === 'development';
         const isProd = process.env.NODE_ENV === 'production';
-
-        modifyUrlLoaderLimit(webpackConfig);
 
         if (isDev) {
             setupMockServer(webpackConfig);
