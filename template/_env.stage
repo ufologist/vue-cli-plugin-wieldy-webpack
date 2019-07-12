@@ -1,0 +1,6 @@
+# 配置环境变量: 预上线环境
+
+# 预上线环境采用和线上环境一样的构建规则
+NODE_ENV=production
+
+__public_base_path__=//domain.cn/static
