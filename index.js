@@ -189,7 +189,9 @@ function modifyOutputFilenameRule(webpackConfig) {
 }
 
 module.exports = function(api, projectOptions) {
-    console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+    console.log('-----------------------------');
+    console.log('[vue-cli-plugin-wieldy-webpack]', 'process.env.NODE_ENV', process.env.NODE_ENV);
+    console.log('-----------------------------');
 
     process.title = process.cwd();
 
