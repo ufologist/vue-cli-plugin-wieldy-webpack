@@ -4,7 +4,7 @@
 
 ## 内置功能
 
-* 多套环境配置
+* 多套[环境配置](https://cli.vuejs.org/zh/guide/mode-and-env.html)
   * 开发: `development`
   * 测试: `test`
   * 预上线: `stage`
