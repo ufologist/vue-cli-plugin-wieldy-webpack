@@ -1,6 +1,6 @@
 # vue-cli-plugin-wieldy-webpack
 
-将 wieldy-webpack 迁移到 vue-cli 3.0 插件体系
+将 [wieldy-webpack](https://github.com/ufologist/wieldy-webpack) 迁移到 vue-cli 3.0 插件体系
 
 ## 内置功能
 
