@@ -83,7 +83,7 @@ function addBanner(webpackConfig) {
 }
 
 /**
- * 修改 url-loader 的 limit 配置
+ * 调整 url-loader 的 limit 配置
  * 
  * @param {ChainedMap} webpackConfig 
  * @see vue-cli/packages/@vue/cli-service/lib/config/base.js
@@ -149,7 +149,7 @@ function setupMockServer(webpackConfig) {
 }
 
 /**
- * 修改 minimizer option
+ * 调整 minimizer option
  * 
  * @param {ChainedMap} webpackConfig
  * @see vue-cli/packages/@vue/cli-service/lib/config/prod.js
@@ -163,7 +163,7 @@ function modifyMinimizerOption(webpackConfig) {
 }
 
 /**
- * 修改生成文件名的命名规则
+ * 调整生成文件名的命名规则
  * 
  * @param {ChainedMap} webpackConfig
  * @see vue-cli/packages/@vue/cli-service/lib/config/base.js
