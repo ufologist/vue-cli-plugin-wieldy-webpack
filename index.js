@@ -1,4 +1,4 @@
-// 将 wiedly-webpack 迁移到 vue-cli 3.0 插件体系
+// 将 wieldy-webpack 迁移到 vue-cli 3.0 插件体系
 // [x]env.js                 -> 改为使用 .env 机制
 // [x]merge-env.js           -> 改为使用 .env 机制
 // [x]get-define-plugin.js   -> 改为使用 .env 机制
