@@ -6,11 +6,15 @@
 // [x]chunk-name-resolver.js -> 升级到支持 webpack4
 // [x]wpk.js                 -> 升级到支持 webpack4
 // [x]merge-wpk-config.js    -> 升级到支持 webpack4
+// [x]create-entry.js        -> 升级到支持 HtmlWebpackPlugin3 
 // [x]index.js               -> 没用了
 // [x]util.js                -> 没用了
-// create-entry.js
-// use-layout-template.js
+// [x]use-layout-template.js -> 没有了
 
+var path = require('path');
+var fs = require('fs');
+
+var _ = require('lodash');
 var webpack = require('webpack');
 var InlineChunksHtmlWebpackPlugin = require('fixed-webpack4-html-webpack-inline-chunk-plugin');
 var mockHttpApi = require('mock-http-api');
@@ -55,8 +59,13 @@ function inlineRuntime(webpackConfig, projectOptions) {
         pages.forEach(function(name) {
             webpackConfig.plugin(`html-${name}`)
                          .tap(function(args) {
+                             var htmlPluginOptions = args[0];
                              // 默认的 chunk 是 `chunk-vendors`, `chunk-common`, `entry`
-                             args[0].chunks.unshift('runtime');
+                             htmlPluginOptions.chunks.unshift('runtime');
+
+                             if (htmlPluginOptions._useLayout) {
+                                 useLayout(htmlPluginOptions, projectOptions);
+                             }
                              return args;
                          });
         });
@@ -70,6 +79,80 @@ function inlineRuntime(webpackConfig, projectOptions) {
                      // 会因为找不到这个 chunk 而报错的
                      deleteFile: false
                  }]);
+}
+
+/**
+ * 使用 layout 机制改写 HtmlWebpackPlugin 的 HTML 内容
+ * 
+ * @param {object} htmlPluginOptions
+ * @param {object} htmlPluginOptions._useLayout
+ * @see https://github.com/ufologist/wieldy-webpack/blob/master/src/create-entry.js#L71
+ */
+function useLayout(htmlPluginOptions) {
+    var layoutOptions = htmlPluginOptions._useLayout;
+    layoutOptions = Object.assign({
+        isContent: false,
+        placeholder: /<!--\sbody\s-->[\s\S]*<!--\s\/body\s-->/
+    }, layoutOptions);
+
+    console.log('------使用 layout 机制------');
+    console.log(layoutOptions);
+    console.log('---------------------------');
+
+    var layoutFile = layoutOptions.layoutFile;
+    var layoutContent = '';
+    var templateFile = htmlPluginOptions.template;
+    var templateContent = '';
+
+    // 获取 layout 的内容
+    if (layoutFile) {
+        if (layoutOptions.isContent) {
+            layoutContent = layoutFile;
+        } else {
+            var layoutFilePath = '';
+            if (path.isAbsolute(layoutFile)) {
+                layoutFilePath = layoutFile;
+            } else {
+                layoutFilePath = path.resolve(layoutFile);
+            }
+
+            try {
+                layoutContent = fs.readFileSync(layoutFilePath, 'utf8');
+            } catch (error) {
+                console.error('read layout content fail', error.message);
+                throw error;
+            }
+        }
+    }
+
+    // 获取页面模版的内容
+    try {
+        if (templateFile) {
+            templateContent = fs.readFileSync(templateFile, 'utf8');
+        }
+    } catch (error) {
+        console.error('read template content fail', error.message);
+        throw error;
+    }
+
+    // 以页面模版的内容替换掉 layout 内容中占位的内容
+    var html = '';
+    if (layoutContent && templateContent) {
+        html = layoutContent.replace(layoutOptions.placeholder, templateContent);
+    } else if (templateContent) {
+        html = templateContent;
+    } else if (layoutContent) {
+        html = layoutContent;
+    }
+
+    // 根据数据生成 HTML 页面的内容
+    htmlPluginOptions.templateContent = _.template(html)({
+        NODE_ENV: process.env.NODE_ENV,
+        BASE_URL: projectOptions.publicPath,
+        htmlWebpackPlugin: {
+            options: htmlPluginOptions,
+        }
+    });
 }
 
 /**
