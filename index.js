@@ -107,6 +107,9 @@ function useLayout(webpackConfig, projectOptions) {
  * 
  * @param {object} htmlPluginOptions
  * @param {object} htmlPluginOptions._useLayout
+ * @param {string} [htmlPluginOptions._useLayout.layoutFile]
+ * @param {boolean} [htmlPluginOptions._useLayout.isContent=false]
+ * @param {string | RegExp} [htmlPluginOptions._useLayout.placeholder]
  * @param {object} projectOptions
  * @return {string}
  * @see https://github.com/ufologist/wieldy-webpack/blob/master/src/create-entry.js#L71
