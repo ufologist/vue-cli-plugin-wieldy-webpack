@@ -9,8 +9,8 @@
 // [x]create-entry.js        -> 升级到支持 HtmlWebpackPlugin3 
 // [x]index.js               -> 没用了
 // [x]util.js                -> 没用了
-// [x]use-layout-template.js -> 没有了
-// [x]add-deploy-plugin.js   -> 没有了
+// [x]use-layout-template.js -> 没用了
+// [x]add-deploy-plugin.js   -> 没用了
 
 var path = require('path');
 var fs = require('fs');
@@ -301,6 +301,7 @@ function modifyOutputFilenameRule(webpackConfig) {
 module.exports = function(api, projectOptions) {
     console.log('-----------------------------');
     console.log('[vue-cli-plugin-wieldy-webpack]', 'process.env.NODE_ENV', process.env.NODE_ENV);
+    console.log('[vue-cli-plugin-wieldy-webpack]', 'publicPath', projectOptions.publicPath);
     console.log('-----------------------------');
 
     process.title = process.cwd();
@@ -308,6 +309,8 @@ module.exports = function(api, projectOptions) {
     api.chainWebpack(function(webpackConfig) {
         const isDev = process.env.NODE_ENV === 'development';
         const isProd = process.env.NODE_ENV === 'production';
+
+        useLayout(webpackConfig, projectOptions);
 
         if (isDev) {
             setupMockServer(webpackConfig);
@@ -319,7 +322,6 @@ module.exports = function(api, projectOptions) {
             addBanner(webpackConfig);
             namedDynamicChunkByFileName(webpackConfig);
             inlineRuntime(webpackConfig, projectOptions);
-            useLayout(webpackConfig, projectOptions);
             modifyMinimizerOption(webpackConfig);
         }
 
