@@ -73,8 +73,10 @@ vue add wieldy-webpack
 
   pages: {
       ...createPageConfig('src/pages/a/a.js', {
+          // page config
           title: 'page a'
       }, {
+          // layout config
           layoutFile: './src/layout.html'
       }),
       ...createPageConfig('src/pages/b/b.js', {
