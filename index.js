@@ -10,6 +10,7 @@
 // [x]index.js               -> 没用了
 // [x]util.js                -> 没用了
 // [x]use-layout-template.js -> 没有了
+// [x]add-deploy-plugin.js   -> 没有了
 
 var path = require('path');
 var fs = require('fs');
@@ -46,6 +47,7 @@ function namedDynamicChunkByFileName(webpackConfig) {
  * 这样动态导入的模块改变后不会影响到主模块的 hash.
  * 
  * @param {ChainedMap} webpackConfig
+ * @param {object} projectOptions
  * @see vue-cli/packages/@vue/cli-service/lib/config/app.js
  */
 function inlineRuntime(webpackConfig, projectOptions) {
@@ -62,10 +64,6 @@ function inlineRuntime(webpackConfig, projectOptions) {
                              var htmlPluginOptions = args[0];
                              // 默认的 chunk 是 `chunk-vendors`, `chunk-common`, `entry`
                              htmlPluginOptions.chunks.unshift('runtime');
-
-                             if (htmlPluginOptions._useLayout) {
-                                 useLayout(htmlPluginOptions, projectOptions);
-                             }
                              return args;
                          });
         });
@@ -82,13 +80,38 @@ function inlineRuntime(webpackConfig, projectOptions) {
 }
 
 /**
- * 使用 layout 机制改写 HtmlWebpackPlugin 的 HTML 内容
+ * layout 机制
+ * 
+ * @param {ChainedMap} webpackConfig
+ * @param {object} projectOptions 
+ */
+function useLayout(webpackConfig, projectOptions) {
+    const multiPageConfig = projectOptions.pages;
+    if (multiPageConfig) {
+        const pages = Object.keys(multiPageConfig);
+        pages.forEach(function(name) {
+            webpackConfig.plugin(`html-${name}`)
+                         .tap(function(args) {
+                             var htmlPluginOptions = args[0];
+                             if (htmlPluginOptions._useLayout) {
+                                 htmlPluginOptions.templateContent = getTemplateContent(htmlPluginOptions, projectOptions);
+                             }
+                             return args;
+                         });
+        });
+    }
+}
+
+/**
+ * 通过 layout 机制获取模版页面的 HTML 内容
  * 
  * @param {object} htmlPluginOptions
  * @param {object} htmlPluginOptions._useLayout
+ * @param {object} projectOptions
+ * @return {string}
  * @see https://github.com/ufologist/wieldy-webpack/blob/master/src/create-entry.js#L71
  */
-function useLayout(htmlPluginOptions) {
+function getTemplateContent(htmlPluginOptions, projectOptions) {
     var layoutOptions = htmlPluginOptions._useLayout;
     layoutOptions = Object.assign({
         isContent: false,
@@ -146,7 +169,8 @@ function useLayout(htmlPluginOptions) {
     }
 
     // 根据数据生成 HTML 页面的内容
-    htmlPluginOptions.templateContent = _.template(html)({
+    // TODO 这里并不支持所有的 variables are available in the template
+    return _.template(html)({
         NODE_ENV: process.env.NODE_ENV,
         BASE_URL: projectOptions.publicPath,
         htmlWebpackPlugin: {
@@ -292,6 +316,7 @@ module.exports = function(api, projectOptions) {
             addBanner(webpackConfig);
             namedDynamicChunkByFileName(webpackConfig);
             inlineRuntime(webpackConfig, projectOptions);
+            useLayout(webpackConfig, projectOptions);
             modifyMinimizerOption(webpackConfig);
         }
 
