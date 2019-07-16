@@ -39,6 +39,13 @@ vue add wieldy-webpack
   * 开启 mock server 功能
   * 调整 minimizer option
 
+### 预留的环境变量
+
+需要配合 `lib/get-public-path.js` 来使用
+
+* `__public_base_path__`: `publicPath` 的基础路径, 会拼上 `pkg.name` 形成完整的 `publicPath`
+* `__public_path__`: `publicPath`
+
 ### 配置 layout 机制
 
 如果想不指定 `template` 参数, 需要将 `public/index.html` 的内容清空或者只保留 `<body>` 中的内容
