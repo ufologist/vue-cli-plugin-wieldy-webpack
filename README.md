@@ -1,5 +1,18 @@
 # vue-cli-plugin-wieldy-webpack
 
+[![NPM version][npm-image]][npm-url] [![Known Vulnerabilities][vulnerabilities-status-image]][vulnerabilities-status-url] [![changelog][changelog-image]][changelog-url] [![license][license-image]][license-url]
+
+[vulnerabilities-status-image]: https://snyk.io/test/npm/vue-cli-plugin-wieldy-webpack/badge.svg
+[vulnerabilities-status-url]: https://snyk.io/test/npm/vue-cli-plugin-wieldy-webpack
+[npm-image]: https://img.shields.io/npm/v/vue-cli-plugin-wieldy-webpack.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/vue-cli-plugin-wieldy-webpack
+[license-image]: https://img.shields.io/github/license/ufologist/vue-cli-plugin-wieldy-webpack.svg
+[license-url]: https://github.com/ufologist/vue-cli-plugin-wieldy-webpack/blob/master/LICENSE
+[changelog-image]: https://img.shields.io/badge/CHANGE-LOG-blue.svg?style=flat-square
+[changelog-url]: https://github.com/ufologist/vue-cli-plugin-wieldy-webpack/blob/master/CHANGELOG.md
+
+[![npm-image](https://nodei.co/npm/vue-cli-plugin-wieldy-webpack.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.com/package/vue-cli-plugin-wieldy-webpack)
+
 将 [wieldy-webpack](https://github.com/ufologist/wieldy-webpack) 迁移到 [vue-cli 3.0](vue-cli3.md) 插件体系
 
 ## 使用方法
