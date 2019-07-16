@@ -17,7 +17,9 @@
 
 ## 使用方法
 
-
+```
+vue add wieldy-webpack
+```
 
 ## 内置功能
 
@@ -25,7 +27,7 @@
   * 开发: `development`
   * 测试: `test`
   * 预上线: `stage`
-  * 线上: `production`
+  * 生产: `production`
 * 默认的 `browserslist` 配置
 * 在 `vue.config.js` 从环境变量中获取 `publicPath`
 * 增强 `webpack` 配置
@@ -60,6 +62,8 @@
 
   ```javascript
   // vue.config.js
+  var createPageConfig = require('vue-cli-plugin-wieldy-webpack/lib/create-page-config.js');
+
   pages: {
       ...createPageConfig('src/pages/a/a.js', {
           title: 'page a'
