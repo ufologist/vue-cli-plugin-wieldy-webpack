@@ -48,6 +48,18 @@ vue add wieldy-webpack
 * `__public_base_path__`: `publicPath` 的基础路径, 会拼上 `pkg.name` 形成完整的 `publicPath`
 * `__public_path__`: `publicPath`
 
+  > 如果是使用 `hash` 模式的单页应用, 可以设置 `__public_path__` 的值为 `./` 的相对路径, 最终 `publicPath` 的值会变成 `''`, 即[**relative to HTML page**](https://webpack.js.org/configuration/output/#outputpublicpath), 这样不管如何部署, 都可以正常加载到静态资源
+  >
+  > 例如:
+  > * 根路径部署: https://project-a.domain.com/index.html
+  > * 非根目录部署: https://domain.com/path/to/project-a/index.html
+  >
+  > 生成的资源路径如下:
+  > * CSS: `<link href="css/main.e2efc4e5.css" rel="stylesheet">`
+  >   * CSS 中的资源: `background: url(../img/logo.82b9c7a5.png);`
+  > * JS: `<script src="js/main.4f43c938.js"></script>`
+  > * 其他资源的加载情况: `<img src="img/logo.82b9c7a5.png">`
+
 ### 配置 layout 机制
 
 如果想不指定 `template` 参数, 需要将 `public/index.html` 的内容清空或者只保留 `<body>` 中的内容
