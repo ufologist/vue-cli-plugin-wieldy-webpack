@@ -17,6 +17,8 @@
 
 ## 使用方法
 
+**在 vue-cli3 创建的项目目录下执行**
+
 ```
 vue add wieldy-webpack
 ```
