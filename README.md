@@ -74,7 +74,7 @@ vue add wieldy-webpack
           title: 'page title',
 
           _useLayout: {
-              layoutFile: './src/layout.html'
+              layoutFile: './src/layout.html' // 这里仅为示例, layout 文件需要自己去指定
           }
       }
   }
@@ -91,12 +91,12 @@ vue add wieldy-webpack
           title: 'page a'
       }, {
           // layout config
-          layoutFile: './src/layout.html'
+          layoutFile: './src/layout.html' // 这里仅为示例, layout 文件需要自己去指定
       }),
       ...createPageConfig('src/pages/b/b.js', {
           title: 'page b'
       }, {
-          layoutFile: './src/layout.html'
+          layoutFile: './src/layout.html' // 这里仅为示例, layout 文件需要自己去指定
       })
   }
   ```
