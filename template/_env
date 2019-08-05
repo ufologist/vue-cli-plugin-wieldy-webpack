@@ -2,3 +2,6 @@
 
 # __public_base_path__=/
 # __public_path__=/path
+
+# 让 CSS 使用默认的 publicPath, 而不是使用相对路径
+__use_default_css_public_path__=true

@@ -43,12 +43,18 @@ vue add wieldy-webpack
 
 ### 预留的环境变量
 
-需要配合 `lib/get-public-path.js` 来使用
+* `__public_base_path__`
 
-* `__public_base_path__`: `publicPath` 的基础路径, 会拼上 `pkg.name` 形成完整的 `publicPath`
-* `__public_path__`: `publicPath`
+  `publicPath` 的基础路径, 会拼上 `pkg.name` 形成完整的 `publicPath`
+  
+  需要在 `vue.config.js` 中配合 `lib/get-public-path.js` 来使用
+* `__public_path__`
 
-  > 如果是使用 `hash` 模式的单页应用, 可以设置 `__public_path__` 的值为 `./` 的相对路径, 最终 `publicPath` 的值会变成 `''`, 即[**relative to HTML page**](https://webpack.js.org/configuration/output/#outputpublicpath), 这样不管如何部署, 都可以正常加载到静态资源
+  直接设置 `publicPath`
+  
+  需要在 `vue.config.js` 中配合 `lib/get-public-path.js` 来使用
+
+  > 如果是使用 `hash` 模式的单页应用, 可以设置 `__public_path__` 的值为 `./` 这个相对路径, 最终 `publicPath` 的值会变成 `''`, 即[**relative to HTML page**](https://webpack.js.org/configuration/output/#outputpublicpath), 这样不管如何部署, 都可以正常加载到静态资源
   >
   > 例如:
   > * 根路径部署: https://project-a.domain.com/index.html
@@ -59,6 +65,11 @@ vue add wieldy-webpack
   >   * CSS 中的资源: `background: url(../img/logo.82b9c7a5.png);`
   > * JS: `<script src="js/main.4f43c938.js"></script>`
   > * 其他资源的加载情况: `<img src="img/logo.82b9c7a5.png">`
+* `__use_default_css_public_path__`
+
+  `true` or `false`
+
+  让 `CSS` 使用默认的 [`publicPath`](https://github.com/webpack-contrib/mini-css-extract-plugin#publicpath), 而不是使用相对路径
 
 ### 配置 layout 机制
 

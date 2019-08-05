@@ -298,6 +298,46 @@ function modifyOutputFilenameRule(webpackConfig) {
     }
 }
 
+/**
+ * 提取 CSS 时不使用相对路径
+ * 因为当 entry 有嵌套路径时, 生成的 CSS 文件中引用的静态资源路径有误
+ * 
+ * 例如配置如下 entry, CSS 中引用的文件路径为 ./res/a.png
+ * 'pages/a/a': 'src/pages/a/a.js'
+ * 
+ * 那么生成的 CSS 文件为 css/pages/a/a.css
+ * 引用的路径为 ../res/a.png, 而所有的图片是放在 /img 目录下的, 显然路径有误
+ * 
+ * @param {ChainedMap} webpackConfig
+ * @see vue-cli/packages/@vue/cli-service/lib/config/css.js
+ * @see https://github.com/vuejs/vue-cli/issues/4378
+ */
+function useDefaultCssPublicPathWhenExtractedCss(webpackConfig) {
+    var ruleNames = ['css', 'postcss', 'scss', 'sass', 'less', 'stylus'];
+
+    ruleNames.forEach(function(ruleName) {
+        var baseRule = webpackConfig.module.rule(ruleName);
+        var oneOfs = [
+            baseRule.oneOf('vue-modules').resourceQuery(/module/),
+            baseRule.oneOf('vue').resourceQuery(/\?vue/),
+            baseRule.oneOf('normal-modules').test(/\.module\.\w+$/),
+            baseRule.oneOf('normal')
+        ];
+
+        oneOfs.forEach(function(rule) {
+            var hasMiniCssExtractLoader = rule.uses.get('extract-css-loader');
+            if (hasMiniCssExtractLoader) {
+                rule.use('extract-css-loader').tap(function(options) {
+                    if (options) {
+                        delete options.publicPath;
+                    }
+                    return options;
+                });
+            }
+        });
+    });
+}
+
 module.exports = function(api, projectOptions) {
     console.log('-----------------------------');
     console.log('[vue-cli-plugin-wieldy-webpack]', 'process.env.NODE_ENV', process.env.NODE_ENV);
@@ -309,8 +349,13 @@ module.exports = function(api, projectOptions) {
     api.chainWebpack(function(webpackConfig) {
         const isDev = process.env.NODE_ENV === 'development';
         const isProd = process.env.NODE_ENV === 'production';
+        const useDefaultCssPublicPath = process.env.__use_default_css_public_path__ === 'true';
 
         useLayout(webpackConfig, projectOptions);
+
+        if (useDefaultCssPublicPath) {
+            useDefaultCssPublicPathWhenExtractedCss(webpackConfig);
+        }
 
         if (isDev) {
             setupMockServer(webpackConfig);
