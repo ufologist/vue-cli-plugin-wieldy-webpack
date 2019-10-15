@@ -69,7 +69,7 @@ vue add wieldy-webpack
 
   `true` or `false`
 
-  让 `CSS` 使用默认的 [`publicPath`](https://github.com/webpack-contrib/mini-css-extract-plugin#publicpath), 而不是使用相对路径
+  让 CSS 中引用的资源路径直接使用 [`publicPath`](https://github.com/webpack-contrib/mini-css-extract-plugin#publicpath), 而不是使用相对路径([@vue/cli-service/lib/config/css.js](https://github.com/vuejs/vue-cli/blob/v3.8.4/packages/%40vue/cli-service/lib/config/css.js#L104) 的机制). 如果设置为 `true`, 就必须将 `vue.config.js` 的 `publicPath` 设置为根路径开始的绝对路径
 
 ### 配置 layout 机制
 
