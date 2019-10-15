@@ -1,6 +1,6 @@
 {
   "name": "vue-cli-plugin-wieldy-webpack",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "将 wieldy-webpack 迁移到 vue-cli 3.0 插件体系",
   "main": "index.js",
   "directories": {

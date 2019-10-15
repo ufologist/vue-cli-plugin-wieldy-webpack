@@ -3,5 +3,6 @@
 # __public_base_path__=/
 # __public_path__=/path
 
-# 让 CSS 使用默认的 publicPath, 而不是使用相对路径
-__use_default_css_public_path__=true
+# 让 CSS 中引用的资源路径直接使用 publicPath, 而不是使用相对路径(@vue/cli-service 的机制)
+# 如果设置为 true, 就必须将 vue.config.js#publicPath 设置为根路径开始的绝对路径
+# __use_default_css_public_path__=false

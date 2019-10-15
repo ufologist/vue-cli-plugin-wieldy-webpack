@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* v1.0.3 2019-10-15
+
+  * fix: 由于默认配置了 `__use_default_css_public_path__` 环境变量, 但如何不配合使用绝对路径的 `publicPath`, 会造成 CSS 引用资源的路径有误, 因此调整为默认不开启 `__use_default_css_public_path__`
+
 * v1.0.2 2019-8-5
 
   * fix: 可配置 `__use_default_css_public_path__` 环境变量, 让 `CSS` 使用默认的 `publicPath`, 而不是使用相对路径
