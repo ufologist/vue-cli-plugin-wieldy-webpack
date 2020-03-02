@@ -238,8 +238,7 @@ function optimizeImage(webpackConfig) {
 
     webpackConfig.module.rule('images')
                         .use('image-loader')
-                        .loader('image-webpack-loader-coding-net-vendor').options(imageLoaderOptions)
-                        .before('url-loader');
+                        .loader('image-webpack-loader-coding-net-vendor').options(imageLoaderOptions);
     // 如果 image-webpack-loader 执行有问题, 可以去掉这个 loader
     // webpackConfig.module.rule('images')
     //                     .uses.delete('image-loader')

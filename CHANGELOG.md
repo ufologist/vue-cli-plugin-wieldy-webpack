@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* v1.0.6 2020-3-2
+
+  * fix: `image-loader` 没有生效的 bug, 应该要放在 `url-loader` 之后
+
 * v1.0.5 2020-3-1
 
   * fix: 修复引用的包名
