@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* v1.0.7 2020-3-13
+
+  * fix: 将 `webpack` 变为 [`peerDependencies`](https://javascript.ruanyifeng.com/nodejs/packagejson.html#toc3), 避免出现版本冲突的问题(外层依赖了低的版本, 而内层却依赖了高的版本)
+
 * v1.0.6 2020-3-2
 
   * fix: `image-loader` 没有生效的 bug, 应该要放在 `url-loader` 之后
