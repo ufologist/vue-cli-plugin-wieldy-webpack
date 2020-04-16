@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* v1.0.8 2020-4-16
+
+  * fix: 升级 `cwebp-bin-coding-net-vendor` 依赖到 `5.1.1`
+
 * v1.0.7 2020-3-13
 
   * fix: 将 `webpack` 变为 [`peerDependencies`](https://javascript.ruanyifeng.com/nodejs/packagejson.html#toc3), 避免出现版本冲突的问题(外层依赖了低的版本, 而内层却依赖了高的版本)
