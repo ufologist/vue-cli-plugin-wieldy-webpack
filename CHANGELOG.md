@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* v1.0.10 2025-3-25
+
+  * fix: 将 `cwebp-bin-coding-net-vendor` 转为可选依赖, 避免这个包安装失败造成 npm 整个安装过程失败
+
 * v1.0.9 2020-4-16
 
   * fix: 升级 `cwebp-bin-coding-net-vendor` 依赖到 `5.1.2`
