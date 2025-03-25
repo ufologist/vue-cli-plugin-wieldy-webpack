@@ -28,9 +28,6 @@
     "lodash": "^4.17.14",
     "mock-http-api": "^1.1.4"
   },
-  "optionalDependencies": {
-    "image-webpack-loader-coding-net-vendor": "^5.1.2"
-  },
   "peerDependencies": {
     "webpack": "^4.28.4"
   }

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* v1.0.11 2025-3-25
+
+  * fix: 删除依赖 `cwebp-bin-coding-net-vendor`, 避免这个包安装失败造成 npm 整个安装过程失败
+
 * v1.0.10 2025-3-25
 
   * fix: 将 `cwebp-bin-coding-net-vendor` 转为可选依赖, 避免这个包安装失败造成 npm 整个安装过程失败
